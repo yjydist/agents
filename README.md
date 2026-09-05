@@ -14,7 +14,7 @@
 
 ## skills
 
-- [refactor](skills/refactor/SKILL.md): 通用重构技能, 在保持行为与契约的前提下简化结构, 收敛状态和配置, 降低理解与修改成本.
+- [refactor](skills/refactor/SKILL.md): 通用重构技能, 在保持行为与契约的前提下优化代码结构, 文件组织与目录结构, 收敛状态和配置, 降低理解与修改成本.
 
 ## 维护
 
