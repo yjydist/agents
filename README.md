@@ -31,6 +31,8 @@
 - [debug](skills/debug/SKILL.md): 对原因尚未确定的缺陷, 错误或失败检查建立复现, 用证据定位根因, 完成修复与回归验证.
 - [review](skills/review/SKILL.md): 审查代码变更或指定范围, 报告有触发条件, 实际影响和证据的正确性, 兼容性及验证问题.
 - [decision-history](skills/decision-history/SKILL.md): 追溯设计与兼容逻辑的历史原因, 核对约束是否仍适用, 区分已知依据与未解决的问题.
+- [decision-rich-commits](skills/decision-rich-commits/SKILL.md): 先设计 commit 边界再写 message, 用兼容 Conventional Commits 的 message 保存背景, 决策和理由, 让 Git history 可以承担 ADR 证据的作用.
+- [git-history-as-adr](skills/git-history-as-adr/SKILL.md): 需要理解架构决策或方案演进时, 优先从 Git history 的 commit message 和 diff 重建决策记录, 标注证据等级, 不先查找 ADR 文件.
 
 技能的 `description` 用于描述能力与适用场景, 正文提供工作方法. 具体发现与加载方式由目标工具决定, 不要求每次读取全部技能. 按需加载可以减少无关上下文, 但不保证技能被选中或指令被完全遵守; 实际效果通过任务反馈判断.
 
