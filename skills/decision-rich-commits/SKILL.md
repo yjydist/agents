@@ -1,11 +1,13 @@
 ---
 name: decision-rich-commits
-description: 先把变更拆成有清晰边界的 commit, 再写兼容 Conventional Commits 的 commit message, 保存背景, 决策和理由, 让 Git history 可以长期承担 ADR 证据的作用.
+description: 用户要求提交变更, 拆分或整理提交, 编写或改进 commit message, 或已授权的工作进入提交准备阶段时使用. 按语义与决策设计 commit 边界, 编写兼容 Conventional Commits 且保留背景, 决策和理由的说明. 编码完成本身不触发提交, 使用本技能不代表获得创建提交或改写历史的授权.
 metadata:
   short-description: 设计清晰的 commit 边界和决策型 commit message
 ---
 
 # 写出可以承担 ADR 的 commit history
+
+按当前请求和已有授权选择工作范围. 仅请求提交划分或 message 时交付方案或文本; stage, 创建提交和改写历史等操作遵循已有授权, 不因加载本技能扩大权限.
 
 目标是让未来的人或 agent 只看 Git history, 就能理解:
 

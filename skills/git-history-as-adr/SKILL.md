@@ -1,6 +1,6 @@
 ---
 name: git-history-as-adr
-description: 解释设计原因, 还原方案取舍或核对历史约束是否仍有效时, 优先从 Git commit message 和 diff 重建决策依据与后续演进. 不要求每次修改都查历史, 不默认生成 ADR 文件.
+description: 用户询问为什么这样设计, 当初为何选择或放弃某个方案, 或当前修改需要查明特殊分支与兼容逻辑的历史原因, 判断旧约束是否仍有效时使用. 从 Git commit message 和 diff 还原决策与后续演进, 区分证据和推断. 单纯解释当前实现或编写新提交说明不需要使用, 不默认生成 ADR 文件.
 metadata:
   short-description: 从 Git history 重建架构决策
 ---
