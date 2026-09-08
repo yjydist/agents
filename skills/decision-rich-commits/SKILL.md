@@ -1,6 +1,13 @@
 ---
 name: decision-rich-commits
-description: 用户要求提交变更, 拆分或整理提交, 编写或改进 commit message, 或已授权的工作进入提交准备阶段时使用. 按语义与决策设计 commit 边界, 编写兼容 Conventional Commits 且保留背景, 决策和理由的说明. 编码完成本身不触发提交, 使用本技能不代表获得创建提交或改写历史的授权.
+description: |-
+  按语义与决策设计 commit 边界, 编写兼容 Conventional Commits 且保留背景, 决策和理由的提交说明.
+  触发时机:
+  - 用户要求提交变更, 拆分或整理提交, 编写或改进 commit message.
+  - 当前任务已包含提交要求并进入提交准备阶段, 需要确定变更如何分组及记录哪些理由.
+  不适用:
+  - 仅完成编码, 当前任务没有提交或提交说明相关要求.
+  - 需要调查已有代码的历史设计原因, 而非组织新提交.
 metadata:
   short-description: 设计清晰的 commit 边界和决策型 commit message
 ---
