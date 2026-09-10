@@ -1,6 +1,6 @@
 # 通用 Agent 工程模板, 技能与专用角色
 
-本仓库以敏捷开发为主线, 通过小步交付, 验证与真实反馈逼近需求, 在持续重构中保持低成本变更能力. [工程原则模板](template/agent.md), [技能](skills) 与 [专用 subagent 提示词](agents) 均服务于这条主线, 可按需独立复制使用.
+本仓库以敏捷开发为主线, 通过小步交付, 验证与真实反馈逼近需求, 在持续重构中保持低成本变更能力. [工程原则模板](template/agent.md), [技能](skills) 与 [专用 subagent 提示词](agents) 均服务于这条主线, 可按需复制和组合使用, 所需依赖见下文.
 
 - 模板提供常驻的核心工程判断与委派原则.
 - 技能提供按任务加载的具体方法, 主 agent 和 subagent 均可使用.
@@ -10,13 +10,13 @@
 
 ## 使用
 
-- 工程原则: 将 `template/agent.md` 的内容复制到目标仓库的 `AGENTS.md`, 可独立使用, 不要求安装技能或专用角色. 目标文件已有指令时合并适用内容, 不覆盖项目约束.
-- 技能: 按需将 `skills/` 下的单个技能目录复制到目标工具支持的技能位置, 保留目录名和 `SKILL.md`. 每个技能可独立使用, 不要求同时复制工程原则模板, 其他技能或专用角色.
-- 专用角色: 按需复制 `agents/` 下的单个 Markdown 文件, 将正文作为目标工具的 subagent 提示词. 每个文件包含独立工作所需的最小方法, 不要求配套技能或模板. 按任务选用技能时仍遵守角色的工作边界, 不因技能包含实施步骤而扩大委派权限.
+- 工程原则: 将 `template/agent.md` 的内容复制到目标仓库的 `AGENTS.md`. 目标文件已有指令时合并适用内容, 不覆盖项目约束.
+- 技能: 按需将 `skills/` 下的技能目录及其依赖复制到目标工具支持的技能位置, 保留目录名和内部资源. 根据下文依赖说明准备所需工具和访问能力.
+- 专用角色: 按需复制 `agents/` 下的 Markdown 文件, 将正文作为目标工具的 subagent 提示词. 按任务选用技能时仍遵守角色的工作边界, 不因技能包含实施步骤而扩大委派权限.
 
 `agents/*.md` 是提示词来源, 不是各工具通用的原生配置. 实际注册, 发现, 工具权限和上下文传递方式由目标工具负责, 不能假定仅复制目录就会自动启用 subagent. 文中的工作边界是提示词约束, 实际权限需由目标环境控制.
 
-通用是指正文无需按仓库改写即可使用. 内容不绑定语言, 框架, 目录模板或开发工具; 实际命令与约束由 Agent 从目标仓库中发现. 使用者仍可按自身需要定制.
+内容优先使用可跨项目复用的方法, 允许为实际工作依赖特定工具或其他技能, 不要求每份内容都能无依赖使用. 实际命令与约束由 Agent 从目标仓库中发现, 特定依赖在下文说明. 使用者仍可按自身需要定制.
 
 仓库只负责创建, 修改和存放这些文件, 不提供通过 Agent 插件或 npx skills 等工具下载, 安装或同步内容的机制. 复制后的内容由使用者自行维护.
 
@@ -26,6 +26,8 @@
 
 ## skills
 
+- [wayfinder](skills/wayfinder/SKILL.md): 用 GitHub goal issue 保存大方向, 拆分可验收的 sub-issue, 根据反馈调整目标与依赖, 核对进展并关闭已达成的目标.
+- [work-issue](skills/work-issue/SKILL.md): 接手一个 GitHub issue, 恢复目标及前后置上下文, 完成执行与验收, 同步任务和目标状态, 留下跨 session 接续信息.
 - [refactor-analysis](skills/refactor-analysis/SKILL.md): 调查具体维护困难, 比较职责边界, 交付重构依据, 目标结构与首个可验证范围, 不修改代码.
 - [refactor](skills/refactor/SKILL.md): 根据具体结构问题或目标实施重构, 保持行为与契约, 小步优化代码和文件组织, 收敛状态与配置.
 - [test-maintenance](skills/test-maintenance/SKILL.md): 根据契约变化或测试脆弱, 重复, 膨胀等问题维护测试, 判断新增, 改写, 合并, 迁移和删除, 保留仍有效的验证.
@@ -38,9 +40,24 @@
 
 技能的 `description` 使用英文描述能力与适用场景, 正文保留中文工作方法. 具体发现与加载方式由目标工具决定, 不要求每次读取全部技能. 按需加载可以减少无关上下文, 但不保证技能被选中或指令被完全遵守; 实际效果通过任务反馈判断.
 
-诊断, 重构分析和提交边界设计各自以证据或方案作为阶段产出, 对应的实施技能只核对当前需要的依据. 例如, 原因未知时先诊断; 用户已提供充分的故障原因和修复要求时, 可以直接修复. 已明确的局部重构和单一目的提交也不必先运行分析技能. 各技能可独立复制, 不建立固定调用链, 不要求额外的交接文档.
+诊断, 重构分析和提交边界设计各自以证据或方案作为阶段产出, 对应的实施技能只核对当前需要的依据. 例如, 原因未知时先诊断; 用户已提供充分的故障原因和修复要求时, 可以直接修复. 已明确的局部重构和单一目的提交也不必先运行分析技能. 按实际需要组合技能, 已有充分输入时不补跑前置阶段.
 
 阶段完成是当前任务内部的里程碑. 用户已要求实施时, 继续完成授权范围内的修改与验证, 不为切换技能反复请求确认; 用户只要求诊断, 分析或方案时, 交付该阶段结果. 拆分技能能减少加载的后续流程, 但不会自动清除模型已读过的上下文, 不能仅凭文件拆分保证阶段隔离或工作投入.
+
+## 依赖与目标管理
+
+| 内容 | 必需依赖 | 条件依赖 |
+| --- | --- | --- |
+| `wayfinder` | GitHub Issues, 可读取和修改 issue, 评论, sub-issue 与阻塞关系的已认证工具及相应仓库权限, 如 GitHub CLI 或 API 连接器 | 核对代码完成情况时需要对应仓库, PR 和验证证据 |
+| `work-issue` | 与 `wayfinder` 相同的 GitHub 能力, 以及完成本项任务所需的代码或调查环境 | 目标, 任务边界或依赖需要重新规划时使用 `wayfinder`, 建议一并复制; 按具体诊断, 修复等问题选用已有技能 |
+| 其他现有技能与工程原则模板 | 目标任务相关的代码, 配置与检查能力; 两项提交技能及 `git-history-as-adr` 需要 Git, 历史调查还需要相关历史记录 | 按正文需要访问远程讨论或使用 subagent, 不强制特定角色文件 |
+| `agents/*.md` | 支持注册和委派 subagent 的运行环境, 以及对应调查材料的读取能力 | 根据任务选用技能, 保持角色的只读边界 |
+
+`wayfinder` 建立或修订路线, `work-issue` 处理当前工作单元. 可以直接从已有 issue 开始执行. 例如: 用 `wayfinder` 把宽泛需求记录为目标并拆出近期任务; 用 `work-issue` 完成指定子任务或从目标中选择下一项; 方向变化时用 `wayfinder` 修订受影响的目标和任务. 仅请求规划时交付规划, 已授权实施时继续推进.
+
+父 issue 保存当前目标与进展摘要, 子 issue 保存验收条件和结果, PR 与代码保存实现证据. 两个技能在运行期间核对并更新状态, 不提供后台监听. 若完成条件依赖之后的合并或上线, 本次标明等待事项, 在后续执行或状态核对时确认并关闭; 需要事件触发的自动同步时另行配置运行机制.
+
+无 GitHub 写入能力时可以交付可发布的草稿或待同步差异, 但不能声称 issue 已创建或状态已同步. 技能之间的依赖不代替用户授权, 也不要求每次加载所有依赖技能.
 
 ## agents
 
@@ -71,6 +88,7 @@
 - Parnas 的 [模块划分论文](https://www.cs.lafayette.edu/~gexia/cs301/resources/parnas.html): 围绕设计决策划分边界, 用信息隐藏减少变更传播.
 - Ousterhout 的 [模块抽象讲义](https://web.stanford.edu/~ouster/CS349W/lectures/abstraction.html) 和 [复杂度讲义](https://web.stanford.edu/~ouster/cgi-bin/cs190-winter18/lecture.php?topic=complexity): 用简单接口隐藏复杂实现, 关注理解负担和修改影响.
 - Matt Pocock 的 [improve-codebase-architecture](https://github.com/mattpocock/skills/tree/main/skills/engineering/improve-codebase-architecture) 与 [codebase-design](https://github.com/mattpocock/skills/tree/main/skills/engineering/codebase-design): 从维护困难选择重构区域, 计入调用者必须掌握的全部知识, 推演删除抽象后的复杂度去向, 验证组合行为.
+- Matt Pocock 的 [wayfinder](https://github.com/mattpocock/skills/blob/main/skills/engineering/wayfinder/SKILL.md), [to-tickets](https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md) 与 [handoff](https://github.com/mattpocock/skills/blob/main/skills/productivity/handoff/SKILL.md): 用目标地图保存方向, 按完整行为拆分任务, 引用已有证据传递接续上下文. 本仓库的目标管理同时覆盖实施验收与路线调整.
 - Fowler 对 [简单设计](https://martinfowler.com/bliki/BeckDesignRules.html) 和 [YAGNI](https://martinfowler.com/bliki/Yagni.html) 的阐释: 保证行为与表达清晰, 减少多余元素, 推迟未被需要的能力.
 - Liskov 与 Wing 的 [行为子类型论文](https://www.cs.cmu.edu/~wing/publications/LiskovWing94.pdf): 替换实现时保持调用者依赖的行为契约.
 - Martin 的 [开闭原则论文](https://www.cs.utexas.edu/~downing/papers/OCP-1996.pdf): 有选择地隔离变化, 无法对所有变化预先封闭.
