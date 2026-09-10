@@ -1,12 +1,13 @@
 ---
 name: decision-rich-commits
 description: |-
-  Write Conventional Commit messages that preserve the actual context, decisions, and reasons for each coherent change.
+  Write Conventional Commit messages for coherent changes, preserving evidenced context, decisions, tradeoffs, and consequences at an appropriate level of detail.
   Use when:
   - A user asks to write or improve commit messages for defined changes.
   - An authorized commit task has understood change boundaries and needs decision-rich messages.
+  - A commit message needs to explain architectural, API, compatibility, or migration decisions whose reasons and relationship to earlier decisions are absent from the diff.
   Not for:
-  - Resolving mixed or unclear commit boundaries, investigating historical rationale, or routine coding without a commit-related request.
+  - Resolving mixed commit boundaries, investigating unknown historical rationale, standalone ADR authoring, or routine coding without a commit-message need.
 metadata:
   short-description: 为完整变更编写保留决策理由的 commit message
 ---

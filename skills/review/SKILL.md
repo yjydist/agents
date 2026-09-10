@@ -1,12 +1,13 @@
 ---
 name: review
 description: |-
-  Review code changes or a specified scope for evidenced correctness, compatibility, and validation problems.
+  Review a diff or code scope and report actionable correctness, compatibility, and validation findings with triggers, impact, and evidence.
   Use when:
-  - A user requests review of a pull request, diff, or code area.
+  - A user requests review of a pull request, staged or unstaged changes, a commit range, or a code area.
   - A concrete risk involving compatibility, failure handling, or missing behavior protection warrants a focused review.
+  - Changed interfaces, configuration, or removed tests raise unresolved questions about caller compatibility or lost behavior protection.
   Not for:
-  - Routine delivery self-checks without a specific review need.
+  - Routine delivery self-checks without a specific review need, diagnosing a reported failure, or implementing already established corrections.
 ---
 
 # 代码审查

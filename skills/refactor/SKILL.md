@@ -1,12 +1,13 @@
 ---
 name: refactor
 description: |-
-  Implement behavior-preserving structural improvements with verifiable, incremental changes.
+  Improve code structure, state ownership, and file organization through incremental changes that preserve behavior and compatibility.
   Use when:
   - A user requests refactoring or code simplification with a concrete structural problem or target.
   - The current task needs a scoped change to tangled responsibilities, duplicated state, scattered rules, or file organization.
+  - Understood wrappers, obsolete paths, configuration combinations, or repeated concepts need to be consolidated or removed while retaining their required behavior.
   Not for:
-  - Assessment-only requests, choosing where to refactor without evidence, or routine feature work without structural problems.
+  - Assessment-only requests, choosing where to refactor without evidence, test-suite maintenance alone, or routine feature work without structural problems.
 ---
 
 # 通用重构

@@ -1,12 +1,13 @@
 ---
 name: fix-bug
 description: |-
-  Implement an evidence-backed correction and verify the original failure and affected behavior.
+  Correct an established defect and verify the original trigger, affected behavior, and regression protection.
   Use when:
   - A user requests a fix and the cause and expected behavior are established.
-  - Diagnosis within an authorized repair task has identified the faulty rule, state transition, or configuration.
+  - Diagnosis or an evidenced review finding within an authorized repair task has identified the faulty rule, state transition, or configuration.
+  - A known correction needs to be completed and checked against the original failure and affected callers.
   Not for:
-  - Unknown failures needing investigation, diagnosis-only requests, or new feature requirements.
+  - Failures whose cause or expected behavior still needs investigation, diagnosis-only requests, or new feature requirements.
 ---
 
 # 缺陷修复与回归验证

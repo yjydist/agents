@@ -1,12 +1,13 @@
 ---
 name: refactor-analysis
 description: |-
-  Investigate structural problems and identify a justified refactoring boundary, target, and behavior constraints.
+  Assess maintenance problems and recommend a justified refactoring boundary, target structure, and first verifiable scope.
   Use when:
   - A user asks where or whether to refactor, or requests a structural assessment or refactoring plan.
-  - Concrete maintenance problems require tracing dependencies or comparing module boundaries before choosing a change.
+  - Scattered rules, unclear state ownership, or changes that span modules require comparing responsibility boundaries before choosing a change.
+  - File organization or an existing abstraction makes related code hard to find or change, and the benefit and compatibility cost of restructuring are unclear.
   Not for:
-  - Implementing an already understood local refactoring, or diagnosing an unexplained runtime failure.
+  - Implementing an already understood refactoring, diagnosing an unexplained failure, or managing a goal and its issue backlog.
 ---
 
 # 重构分析

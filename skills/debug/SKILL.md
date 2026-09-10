@@ -1,12 +1,13 @@
 ---
 name: debug
 description: |-
-  Investigate failures and establish the root cause with reproducible evidence.
+  Diagnose failures and return root-cause evidence, remaining uncertainty, and regression scenarios for a correction.
   Use when:
   - A user reports a bug or requests diagnosis or a repair whose cause is still unknown.
   - An unexplained error, failed check, regression, or intermittent failure blocks the current task.
+  - A failure could come from product behavior, test expectations, configuration, or the environment, and the cause must be distinguished before changing it.
   Not for:
-  - Implementing a correction whose cause is already established, or reorganizing otherwise understood tests.
+  - Implementing an established correction, maintaining tests with understood problems, or reviewing a diff without a reported failure.
 ---
 
 # 根因诊断

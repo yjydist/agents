@@ -1,12 +1,13 @@
 ---
 name: test-maintenance
 description: |-
-  Maintain existing tests while preserving valid behavior protection and reducing maintenance cost.
+  Reassess and maintain existing tests, preserving valid behavior protection while reducing coupling, duplication, and obsolete coverage.
   Use when:
-  - A user asks to reorganize, simplify, replace, or remove tests.
-  - Brittle implementation coupling, redundant assertions, or changed contracts require reassessing existing tests and their replacement coverage.
+  - A user asks to assess, reorganize, simplify, replace, or remove existing tests.
+  - Tests depend on private implementation details, repeat the same protection, or require frequent rewrites for behavior-preserving changes.
+  - Changed contracts or moved implementations require deciding which tests to retain, migrate, replace, or delete and how to preserve needed assertions.
   Not for:
-  - Routine test additions, or unexplained test failures that still require diagnosis.
+  - Routine test additions, unexplained failures that still require diagnosis, or changing product behavior to make tests pass.
 ---
 
 # 测试维护

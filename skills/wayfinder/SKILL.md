@@ -1,13 +1,14 @@
 ---
 name: wayfinder
 description: |-
-  Maintain an evolving goal and a verifiable route of session-sized tasks in GitHub issues.
+  Create and revise GitHub goal issues and verifiable sub-issues, keeping scope, dependencies, progress, and goal closure aligned with evidence.
   Use when:
   - A user wants to turn a broad direction into a tracked goal and actionable sub-issues.
-  - New evidence or a changed requirement calls for revising a tracked goal, task boundaries, or dependencies.
-  - A user asks to reconcile goal progress with completed work or determine whether the goal can close.
+  - A goal spans sessions, or a tracked task has multiple independent outcomes and needs smaller executable boundaries.
+  - New evidence or a changed direction requires revising, splitting, cancelling, or replacing goals, tasks, or dependencies.
+  - Goal progress conflicts with actual results, the next step is unclear, or the goal may be ready to close.
   Not for:
-  - Executing an already bounded issue without a planning problem, or organizing commits from existing changes.
+  - Executing or handing off a bounded issue without a planning problem, choosing code refactoring boundaries, or organizing commits from existing changes.
 ---
 
 # 目标与路线管理

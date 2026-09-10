@@ -1,12 +1,13 @@
 ---
 name: plan-commits
 description: |-
-  Design cohesive commit boundaries and ordering from the actual changes and their decisions.
+  Propose cohesive commit boundaries and dependency order from actual changes, including companion tests and verifiable intermediate states.
   Use when:
-  - A user asks to split, group, or reorganize commits or plan a commit sequence.
+  - A user asks to split a working diff, group changes into commits, reorganize existing commits, or plan their sequence.
   - An authorized commit task contains mixed purposes, partial staging, or migration dependencies that need boundary analysis.
+  - Follow-up fixes or incomplete companion changes make it unclear which changes belong together for review and rollback.
   Not for:
-  - Writing a message for an already coherent change, or routine coding without a commit-related request.
+  - Writing a message for an already coherent change, decomposing future work into issues, or routine coding without a commit-related request.
 ---
 
 # 设计 commit 边界

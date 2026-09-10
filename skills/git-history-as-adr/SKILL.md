@@ -1,12 +1,13 @@
 ---
 name: git-history-as-adr
 description: |-
-  Reconstruct design decisions and their evolution from Git history, separating evidence from inference.
+  Reconstruct design rationale and its evolution from Git commits and supporting records, distinguishing documented reasons from inference.
   Use when:
   - A user asks why a design or alternative was chosen, or whether a historical constraint still applies.
   - A current change depends on an unknown rationale behind a design, special case, or compatibility rule.
+  - A decision may have been superseded, reverted, or constrained by later changes, and that history affects whether to retain or replace the current design.
   Not for:
-  - Explaining only how current code works, or writing messages for new commits.
+  - Explaining only how current code works, authoring new ADRs or commit messages, or locating a regression without a question about design rationale.
 metadata:
   short-description: 从 Git history 重建架构决策
 ---

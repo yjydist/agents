@@ -1,13 +1,14 @@
 ---
 name: work-issue
 description: |-
-  Carry a GitHub issue through execution, acceptance, status reconciliation, and resumable handoff within its goal.
+  Execute or resume a GitHub issue with goal and dependency context, verify acceptance, reconcile task and parent status, and leave a usable handoff.
   Use when:
-  - A user asks to implement, investigate, resume, or finish a specific GitHub issue or choose the next task under a goal.
-  - Work on a tracked task needs acceptance, issue closure, or a handoff before another session can continue.
-  - Implementation or a merged PR appears to have satisfied a tracked task whose status is stale.
+  - A user asks to implement, investigate, resume, or finish a GitHub issue, or execute the next ready task under an existing goal.
+  - A tracked task needs prior decisions, available implementation results, or downstream expectations recovered before work can continue.
+  - Work on an issue needs acceptance, closure, or a handoff, including partial work or waiting for merge, deployment, or a decision.
+  - Implementation or external completion appears to have satisfied an issue whose status is stale.
   Not for:
-  - Establishing or replanning a broad goal, or ordinary coding without a tracked issue.
+  - Establishing or replanning a broad goal, ordinary coding without a tracked issue, or general conversation handoff unrelated to an issue.
 ---
 
 # 执行任务与跨 session 接续
