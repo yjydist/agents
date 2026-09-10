@@ -1,14 +1,12 @@
 ---
 name: test-maintenance
 description: |-
-  调整现有测试及其组织, 保留仍有效的行为保护并降低测试维护成本.
-  触发时机:
-  - 用户要求整理, 精简或维护测试, 判断哪些测试需要改写, 合并, 迁移或删除.
-  - 当前修改暴露测试绑定内部结构, 重复验证或脆弱依赖等问题, 需要调整验证方式.
-  - 契约变化或实现迁移后, 需要判断原有断言是否仍有效, 或由哪些测试承接行为保护.
-  不适用:
-  - 仅为普通功能开发补充测试, 尚未涉及现有测试的维护问题.
-  - 原因不明的测试失败, 当前需要先定位故障根因.
+  Maintain existing tests while preserving valid behavior protection and reducing maintenance cost.
+  Use when:
+  - A user asks to reorganize, simplify, replace, or remove tests.
+  - Brittle implementation coupling, redundant assertions, or changed contracts require reassessing existing tests and their replacement coverage.
+  Not for:
+  - Routine test additions, or unexplained test failures that still require diagnosis.
 ---
 
 # 测试维护

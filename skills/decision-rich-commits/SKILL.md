@@ -1,151 +1,26 @@
 ---
 name: decision-rich-commits
 description: |-
-  按语义与决策设计 commit 边界, 编写兼容 Conventional Commits 且保留背景, 决策和理由的提交说明.
-  触发时机:
-  - 用户要求提交变更, 拆分或整理提交, 编写或改进 commit message.
-  - 当前任务已包含提交要求并进入提交准备阶段, 需要确定变更如何分组及记录哪些理由.
-  不适用:
-  - 仅完成编码, 当前任务没有提交或提交说明相关要求.
-  - 需要调查已有代码的历史设计原因, 而非组织新提交.
+  Write Conventional Commit messages that preserve the actual context, decisions, and reasons for each coherent change.
+  Use when:
+  - A user asks to write or improve commit messages for defined changes.
+  - An authorized commit task has understood change boundaries and needs decision-rich messages.
+  Not for:
+  - Resolving mixed or unclear commit boundaries, investigating historical rationale, or routine coding without a commit-related request.
 metadata:
-  short-description: 设计清晰的 commit 边界和决策型 commit message
+  short-description: 为完整变更编写保留决策理由的 commit message
 ---
 
-# 写出可以承担 ADR 的 commit history
+# 写出保留决策理由的 commit message
 
-按当前请求和已有授权选择工作范围. 仅请求提交划分或 message 时交付方案或文本; stage, 创建提交和改写历史等操作遵循已有授权, 不因加载本技能扩大权限.
+让未来的人或 agent 从每个 commit 理解改了什么, 为什么要改, 为什么选择这个方案, 以及它与前后决策的关系. 按当前请求和已有授权执行; 仅请求 message 时交付文本, 不因加载本技能而 stage, 创建提交或改写历史.
 
-目标是让未来的人或 agent 只看 Git history, 就能理解:
+## 核对说明对象
 
-- 改了什么
-- 为什么要改
-- 为什么选择这个方案
-- 这个 commit 和前后决策是什么关系
-
-高质量 history 同时依赖两件事:
-
-1. commit 边界合理.
-2. commit message 保存了真正有价值的理由.
-
-先设计 commit, 再写 message.
-
-## 工作流程
-
-### 1. 先检查全部变更
-
-至少检查:
-
-```bash
-git status --short
-git diff --stat
-git diff
-git diff --cached --stat
-git diff --cached
-```
-
-不要直接为当前 staged 内容生成 message. 先判断这些变更是否应该属于同一个 commit.
-
-### 2. 设计 commit 边界
-
-一个 commit 应该表达一个完整且连贯的变化.
-
-判断标准:
-
-- 是否只有一个主要目的
-- 是否只有一套主要理由
-- 是否可以独立 review
-- 是否可以独立理解
-- 是否可以合理 revert
-- 是否留下一个正常, 可理解的代码状态
-
-不要按文件数量, 目录或 diff 大小机械拆分.
-
-应该按语义和决策边界拆分.
-
-好例子:
-
-```text
-commit 1: 重构 token parser, 不改变行为
-commit 2: 支持 signing key rotation 期间同时接受新旧 key
-commit 3: 迁移完成后删除旧的单 key 配置
-```
-
-差例子:
-
-```text
-commit 1: 修改 auth.ts
-commit 2: 修改 config.ts
-commit 3: 修改 auth tests
-```
-
-### 3. 决定哪些变化应该拆开
-
-通常应该拆开:
-
-- 解决不同问题的变化
-- 理由不同的变化
-- cleanup 和行为变化
-- refactor 和依赖它的行为变化
-- migration 和 legacy removal
-- 主任务和顺手发现的独立 bug fix
-- 可以独立 review 或 revert 的变化
-
-如果两个变化需要不同的背景, 决策或理由, 通常应该拆成不同 commit.
-
-### 4. 决定哪些变化应该放在一起
-
-不要为了让 commit 很小而过度拆分.
-
-通常应该放在一起:
-
-- 实现和直接对应的测试
-- bug fix 和 regression test
-- 必须同时变化才能保持正确行为的代码和配置
-- 一个决策所必需的最小完整改动
-
-一个 commit 最好保持仓库处于可构建, 可测试或至少逻辑完整的状态. 具体要求跟随仓库现有规范.
-
-### 5. 对大型迁移保留演进顺序
-
-大型架构变化通常不应该压成一个巨大 commit.
-
-优先保留有意义的状态转换:
-
-```text
-1. 引入新路径, 保留兼容
-2. 迁移调用方, 数据或配置
-3. 让新路径成为默认或唯一权威路径
-4. 满足删除条件后移除旧路径
-```
-
-每个 commit 都应该说明当前这一步为什么存在.
-
-### 6. 清理无意义的中间 commit
-
-开发过程中可以出现临时 commit, 但发布长期 history 前应处理这些内容:
-
-- fix typo from previous commit
-- make tests pass
-- lint previous commit
-- address review comment
-- finish previous incomplete commit
-
-如果它们没有独立价值, 使用 fixup 或 squash 合并到真正对应的 commit.
-
-### 7. 精确 stage
-
-需要时使用:
-
-```bash
-git add -p
-```
-
-不要因为几个变化碰巧在同一个文件里, 就把它们放进同一个 commit.
-
-### 8. 最后再写 commit message
-
-message 必须描述这个 commit 实际包含的内容, 不是整个任务, PR 或最终目标.
+- 检查工作区状态, 相关 staged 与 unstaged diff, 新增文件及用户指定范围, 确认说明对应哪一个完整变化. 不把当前暂存区自动当成合理边界, 不遗漏未暂存但属于同一行为的测试或配置.
+- 边界已有依据时直接核对, 不重新规划全部提交. 若发现多个无关目的, 缺失的配套变更或未解决的迁移依赖, 先解决具体边界问题, 不用一篇长 message 掩盖它.
+- 从需求, 当前讨论和实际差异提取背景与理由. 不编造备选方案, benchmark, incident 或 requirement; 不确定的动机保留为未知.
+- message 只描述对应 commit 实际包含的变化, 不把整个任务, PR 或未来目标写成该 commit 已完成的结果. 执行已授权的提交操作时, 精确 stage 对应内容并核对最终 diff, 内容变化后同步调整 message.
 
 ## Commit message 基本结构
 
@@ -161,33 +36,7 @@ message 必须描述这个 commit 实际包含的内容, 不是整个任务, PR 
 feat(auth): support overlapping signing keys during rotation
 ```
 
-常见 type:
-
-- `feat`
-- `fix`
-- `refactor`
-- `perf`
-- `test`
-- `docs`
-- `build`
-- `ci`
-- `chore`
-
-优先遵守仓库已有的 type 和 scope 约定.
-
-header 描述结果, 不要写模糊的操作过程.
-
-好:
-
-```text
-feat(auth): support overlapping signing keys during rotation
-```
-
-差:
-
-```text
-feat(auth): update auth code
-```
+优先遵守仓库已有的 type 和 scope 约定. header 描述结果, 不写模糊的操作过程.
 
 ## 根据决策密度决定 message 长度
 
@@ -219,35 +68,7 @@ docs(readme): fix installation command typo
 
 ### Level 2: 重要决策
 
-用于架构, API, 数据模型, 持久化, 安全, 性能, 并发, 兼容性, 部署或重要运维行为.
-
-推荐结构:
-
-```text
-<type>(<scope>): <description>
-
-背景:
-<问题和约束>
-
-决策:
-<选择的方案>
-
-理由:
-<为什么这个方案更适合当前约束>
-
-备选方案:
-- <真实考虑过的方案>: <没有选择的原因>
-
-影响:
-- <重要权衡, 新不变量, 迁移要求或后续义务>
-
-Decision-Relates-To: <sha>
-Decision-Supersedes: <sha>
-Decision-Follows-Up: <sha>
-Refs: <issue-or-ticket>
-```
-
-只保留有长期价值的部分. 没有真实信息就不要写对应 section.
+涉及架构, API, 数据模型, 兼容性, 性能等重要取舍, 或需要表达与已有决策的关系时, 读取 [重要决策模板与 trailer](references/decision-record.md). 仅保留有实际依据和长期价值的部分, 普通提交不加载该参考.
 
 ## Body 应该记录什么
 
@@ -293,55 +114,6 @@ Refs: <issue-or-ticket>
 - 运维责任
 - 未来删除条件
 
-## 决策关系 trailer
-
-当 commit 和历史决策有明确关系时, 可以使用 Git trailer:
-
-```text
-Decision-Relates-To: <sha>
-Decision-Supersedes: <sha>
-Decision-Follows-Up: <sha>
-Refs: <issue-or-ticket>
-```
-
-使用规则:
-
-- `Decision-Relates-To`: 与另一个决策相关, 但不是替代关系.
-- `Decision-Supersedes`: 当前决策明确替代旧决策.
-- `Decision-Follows-Up`: 当前 commit 是前一个决策的计划内后续步骤.
-- `Refs`: 关联 issue, ticket 或其他稳定引用.
-
-不要为了建立关系图而滥用 trailer.
-
 ## 最终检查
 
-commit 前检查:
-
-- 这个 commit 是否只有一个连贯故事
-- staged 内容是否刚好支持这个故事
-- implementation 和必要测试是否完整
-- 是否混入独立 cleanup 或顺手修改
-- header 是否准确描述结果
-- body 是否解释了真正重要的 why
-- 是否写入了未经确认的理由或备选方案
-- 是否需要连接之前的决策 commit
-
-最后问自己:
-
-```text
-如果未来的 agent 只找到这个 commit, 它能否说明改了什么, 为什么这样改, 以及 revert 这个 commit 会撤销什么?
-```
-
-如果答案包含多个无关故事, 应该拆分 commit.
-
-如果拆分后单个 commit 已经没有独立意义, 应该合并.
-
-## 不要做
-
-- 不要为当前 staged 内容直接生成 message 而不检查 commit 边界.
-- 不要按文件机械拆 commit.
-- 不要把多个独立决策塞进一个 commit.
-- 不要把一个完整决策拆成没有意义的小碎片.
-- 不要编造背景, 理由, 备选方案, benchmark, incident 或 requirement.
-- 不要让 message 只复述 diff.
-- 不要把临时开发步骤当成长期决策 history.
+核对 header 是否准确描述结果, body 是否补充 diff 无法可靠表达的 why, 理由是否有实际依据. 如果未来的人或 agent 只找到这个 commit, 应能说明改了什么, 为什么这样改, 以及 revert 会撤销什么. 简单变化无需为填满格式增加段落.

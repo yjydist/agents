@@ -1,12 +1,12 @@
 ---
 name: git-history-as-adr
 description: |-
-  从 Git commit message 和 diff 还原设计决策与后续演进, 区分历史证据和推断, 判断约束是否仍有效.
-  触发时机:
-  - 用户询问为什么这样设计, 当初为何选择或放弃某个方案, 或某项历史约束是否仍需保留.
-  - 当前修改取决于尚未查明的设计取舍, 特殊分支或兼容逻辑的历史原因, 需要追溯决策依据.
-  不适用:
-  - 单纯解释当前实现如何工作, 或为新变更编写提交说明.
+  Reconstruct design decisions and their evolution from Git history, separating evidence from inference.
+  Use when:
+  - A user asks why a design or alternative was chosen, or whether a historical constraint still applies.
+  - A current change depends on an unknown rationale behind a design, special case, or compatibility rule.
+  Not for:
+  - Explaining only how current code works, or writing messages for new commits.
 metadata:
   short-description: 从 Git history 重建架构决策
 ---

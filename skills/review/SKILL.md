@@ -1,12 +1,12 @@
 ---
 name: review
 description: |-
-  依据需求, 调用方和契约审查代码的正确性, 兼容性及验证缺口, 报告有证据和实际影响的问题.
-  触发时机:
-  - 用户要求审查 PR, diff 或指定代码范围, 查找缺陷与回归风险.
-  - 当前变更出现接口兼容, 关键失败路径或行为保护缺失等具体风险, 需要针对相关代码进行专门审查.
-  不适用:
-  - 没有专门审查需求的普通交付前自检.
+  Review code changes or a specified scope for evidenced correctness, compatibility, and validation problems.
+  Use when:
+  - A user requests review of a pull request, diff, or code area.
+  - A concrete risk involving compatibility, failure handling, or missing behavior protection warrants a focused review.
+  Not for:
+  - Routine delivery self-checks without a specific review need.
 ---
 
 # 代码审查
